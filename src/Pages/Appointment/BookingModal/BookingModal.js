@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
+import { Button, TextField } from '@mui/material';
 
 const style = {
   position: "absolute",
@@ -17,7 +18,15 @@ const style = {
   p: 4,
 };
 
-const BookingModal = ({ handleBookingClose, openBooking}) => {
+const BookingModal = ({ handleBookingClose, openBooking, booking, date }) => {
+  const { name, time } = booking;
+  const handleFormSubmit = e => {
+    e.preventDefault();
+
+    alert('Submitted');
+    handleBookingClose();
+
+  }
     return (
       <Modal
         aria-labelledby="transition-modal-title"
@@ -33,11 +42,54 @@ const BookingModal = ({ handleBookingClose, openBooking}) => {
         <Fade in={openBooking}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modal
+              {name}
             </Typography>
-            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <form onSubmit={handleFormSubmit}>
+              <TextField
+                disabled
+                label="Time"
+                id="filled-size-small"
+                defaultValue={time}
+                variant="filled"
+                size="small"
+                sx={{ m: 2 }}
+              />
+              <TextField
+                label="Your Name"
+                id="filled-size-small"
+                defaultValue="Your Name"
+                variant="filled"
+                size="small"
+                sx={{ m: 2 }}
+              />
+              <TextField
+                label="Email"
+                id="filled-size-small"
+                defaultValue="Your Email"
+                variant="filled"
+                size="small"
+                sx={{ m: 2 }}
+              />
+              <TextField
+                label="Phone"
+                id="filled-size-small"
+                defaultValue="Phone Number"
+                variant="filled"
+                size="small"
+                sx={{ m: 2 }}
+              />
+              <TextField
+                disabled
+                label="Date"
+                id="filled-size-small"
+                defaultValue={date.toDateString()}
+                variant="filled"
+                size="small"
+                sx={{ m: 2 }}
+              />
+              <br />
+              <Button type="submit" sx={{mx: 2}} variant="contained">Submit</Button>
+            </form>
           </Box>
         </Fade>
       </Modal>
